@@ -6,7 +6,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=tasks_db
+      - POSTGRES_DB=users
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin123
     volumes:
@@ -38,7 +38,11 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "8080:8080"
+    environment:
+      - DB_HOST=value
+      - DB_USER=value
+      - DB_PASS=value
     depends_on:
       - postgres_reg
     networks:
