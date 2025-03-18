@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+
+	_ "github.com/lib/pq"
 )
 
 const (
@@ -32,4 +34,15 @@ func connectDB() (*sql.DB, error) {
 	}
 
 	return db, nil
+}
+
+// initDB создает таблицу users, если она не существует.
+func initDB(db *sql.DB) error {
+	query := `CREATE TABLE IF NOT EXISTS users (
+		id SERIAL PRIMARY KEY,
+		login TEXT NOT NULL UNIQUE,
+		password TEXT NOT NULL
+	);`
+	_, err := db.Exec(query)
+	return err
 }

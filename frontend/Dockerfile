@@ -1,10 +1,14 @@
-FROM nginx:alpine
+FROM node:22-alpine
 
-COPY index.html /usr/share/nginx/html/index.html
-COPY index.css /usr/share/nginx/html/styles.css
-COPY index.js /usr/share/nginx/html/script.js
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
+
+# Копируем package.json и устанавливаем зависимости
+COPY package.json package-lock.json* ./
+RUN npm install
+
+# Копируем исходный код
+COPY . .
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]
