@@ -6,9 +6,6 @@ function register(event) {
   let login = document.getElementById("login").value;
   let password = document.getElementById("password").value;
 
-  console.log("Login:", login);
-  console.log("Password:", password);
-
   fetch(`/register`, { 
     method: "POST",
     headers: { "Content-Type": "application/json" },
